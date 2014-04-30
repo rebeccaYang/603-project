@@ -15,7 +15,6 @@ div#wrap
 	align:center;
 	margin:0 auto;
 
-
 }
 
 div #cinema
@@ -108,6 +107,7 @@ li
 	{
 		float:left;
 	}
+
 a.nav:link,a.nav:visited
 	{
 		display:block;
