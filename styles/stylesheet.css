@@ -124,10 +124,14 @@ a.nav:hover,a.nav:active
 	{
 		background-color:#cc0000;
 	}
-#logo
+div.global_logo
 	{
-		display: block;
+		display: inline;
 	}
+div.global_navigation
+{
+	display: inline-block;
+}
 
 
 
