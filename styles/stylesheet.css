@@ -8,6 +8,16 @@ div
 	display: block;
 }
 
+div#wrap
+{
+	position:relative;
+	width:1100px;
+	align:center;
+	margin:0 auto;
+
+
+}
+
 div #cinema
 {
 	left:0px;
@@ -86,6 +96,38 @@ h1.splash_header
 .splash_button:hover {
   background-color: #FA8E8E;
 }
+
+ul
+	{
+		list-style-type:none;
+		margin:0;
+		padding:0;
+		overflow:hidden;
+	}
+li
+	{
+		float:left;
+	}
+a.nav:link,a.nav:visited
+	{
+		display:block;
+		width:400px;
+		font-weight:bold;
+		color:#FFFFFF;
+		background-color:#bebebe;
+		text-align:center;
+		padding:4px;
+		text-decoration:none;
+		text-transform:uppercase;
+	}
+a.nav:hover,a.nav:active
+	{
+		background-color:#cc0000;
+	}
+#logo
+	{
+		display: block;
+	}
 
 
 
