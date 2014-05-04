@@ -1,24 +1,70 @@
 <html>
 <head>
 	<link href="styles/stylesheet.css" type="text/css" rel="stylesheet"/>
+	<link href="styles/favorites.css" type="text/css" rel="stylesheet"/>
 	<link rel="stylesheet" href="styles/js-image-slider.css"  type="text/css" />
+
     <script src="scripts/js-image-slider.js" type="text/javascript"></script>
-    <!--scripts fro autocomplete -->
-    <script src="scripts/jquery.js"></script>
-	<script src="scripts/jquery-ui-autocomplete.js"></script>
-	<script src="scripts/jquery.select-to-autocomplete.min.js"></script>
+
+<script src="jquery.min.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
 	
-	<script type="text/javascript" charset="utf-8">
-	  (function($){
-	    $(function(){
-	      $('select').selectToAutocomplete();
-	      $('form').submit(function(){
-	        alert( $(this).serialize() );
-	        return false;
-	      });
-	    });
-	  })(jQuery);
-	</script>
+	// $(".item img").css({"display":"none");
+	
+	// On window load. This waits until images have loaded which is essential
+	$(window).load(function(){
+		
+		// Fade in images so there isn't a color "pop" document load and then on window load
+		$(".item img").animate({opacity:1},500);
+		
+		// clone image
+		$('.item img').each(function(){
+			var el = $(this);
+			el.css({"position":"absolute"}).wrap("<div class='img_wrapper' style='display: inline-block'>").clone().addClass('img_grayscale').css({"position":"absolute","z-index":"998","opacity":"0"}).insertBefore(el).queue(function(){
+				var el = $(this);
+				el.parent().css({"width":this.width,"height":this.height});
+				el.dequeue();
+			});
+			this.src = grayscale(this.src);
+		});
+		
+		// Fade image 
+		$('.item img').mouseover(function(){
+			$(this).parent().find('img:first').stop().animate({opacity:1}, 1000);
+		})
+		$('.img_grayscale').mouseout(function(){
+			$(this).stop().animate({opacity:0}, 1000);
+		});		
+	});
+	
+	// Grayscale w canvas method
+	function grayscale(src){
+		//var image = document.getElementById("images");
+		//image.crossOrigin = 'anonymous';
+        var canvas = document.createElement('canvas');
+		var ctx = canvas.getContext('2d');
+        var imgObj = new Image();
+        //imgObj.crossOrigin = "Anonymous";
+		imgObj.src = src;
+
+		canvas.width = imgObj.width;
+		canvas.height = imgObj.height; 
+		ctx.drawImage(imgObj, 0, 0); 
+		var imgPixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+		for(var y = 0; y < imgPixels.height; y++){
+			for(var x = 0; x < imgPixels.width; x++){
+				var i = (y * 4) * imgPixels.width + x * 4;
+				var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+				imgPixels.data[i] = avg; 
+				imgPixels.data[i + 1] = avg; 
+				imgPixels.data[i + 2] = avg;
+			}
+		}
+		ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
+		return canvas.toDataURL();
+    }
+	    
+</script> 
 
 </head>
 
@@ -56,7 +102,7 @@
 				<div id="navigation2">
 					<ul>
 						<li><a class="nav" href="index.html">Home</a></li>
-						<li><a class="nav" href="favorites.html">Favorites</a></li>
+						<li><a class="nav" href="#favorites_pagewrap">Favorites</a></li>
 						<li><a class="nav" href="geo.html">Geo Tag</a></li>
 					</ul>
 				</div>
@@ -93,10 +139,61 @@
 			</form>
 		</div>
 	-->
+		<div id="favorites_pagewrap"> 
+
+                        <h1>Favorites</h1><br>
+			<h2>See the most liked cities and spots among travelers.</h2>
+			<div id="favorite_nav">
+					<ul>
+						<li class = "backhome"><a class="favorite_nav" href="index2.html">Home</a></li>
+					</ul>
+			</div>
+
+			<div class="item first"> 
+				<a href="http://themify.me"><img src="images/beijing1.jpg"></a> 
+				<h3>Bird Nest(Beijing National statium)</h3> 
+			</div> 
+			<div class="item"> 
+				<a href="http://icondock.com"><img src="images/beijing2.jpg"></a> 
+				<h3>Northern Sea</h3> 
+			</div> 
+			<div class="item"> 
+				<a href="http://www.webdesignerwall.com"><img src="images/beijing3.jpg"></a> 
+				<h3>Gu Gong</h3> 
+			</div> 
+			<div class="item first"> 
+				<a href="#"><img src="images/gutong_empire.jpg"></a> 
+				<h3>when <b>Gu Gong</b> met <b>Empire Building</b></h3> 
+			</div> 
+			<div class="item"> 
+				<a href="#"><img src="images/wallstreet_hutong.jpg"></a> 
+				<h3>when <b>Wall Street</b> met Beijing <b>Hutong</b></h3> 
+			</div> 
+			<div class="item"> 
+				<a href="#"><img src="images/yiheyuan_central park.jpg"></a> 
+				<h3>when <b>Summer Palace</b> met NewYork <b>Central Park</b></h3> 
+			</div> 
+			<div class="item first"> 
+				<a href="#"><img src="images/qingdao.jpg"></a> 
+				<h3>Qing Dao</h3> 
+			</div> 
+			<div class="item"> 
+				<a href="#"><img src="images/kekexili.jpg"></a> 
+				<h3>Keke xili in Tibet</h3> 
+			</div> 
+			<div class="item"> 
+				<a href="#"><img src="images/budalagong.jpg"></a> 
+				<h3>Potala Palace in Tibet</h3> 
+			</div> 
+		</div>
+
+		<div id = "geotag_pagewrap">
+
+	
 
 
 
 	</div>
 </div>
 </body>
-</html>
+</html>	
