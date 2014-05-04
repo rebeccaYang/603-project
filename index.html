@@ -1,37 +1,102 @@
 <html>
 <head>
 	<link href="styles/stylesheet.css" type="text/css" rel="stylesheet"/>
+	<link rel="stylesheet" href="styles/js-image-slider.css"  type="text/css" />
+    <script src="scripts/js-image-slider.js" type="text/javascript"></script>
+    <!--scripts fro autocomplete -->
+    <script src="scripts/jquery.js"></script>
+	<script src="scripts/jquery-ui-autocomplete.js"></script>
+	<script src="scripts/jquery.select-to-autocomplete.min.js"></script>
+	
+	<script type="text/javascript" charset="utf-8">
+	  (function($){
+	    $(function(){
+	      $('select').selectToAutocomplete();
+	      $('form').submit(function(){
+	        alert( $(this).serialize() );
+	        return false;
+	      });
+	    });
+	  })(jQuery);
+	</script>
+
 </head>
 
 <body>
 
 <div id = "wrap">
-	<div id = "content_container">
-	<div id="header">
-	<div id="logo" class="global_logo"><a href="index.html"><img src="images/logo.jpg"></a></div>
-	<div id="navigation" class="global_navigation">
-		<div id="navigation1" align="right">
-			<form>
-				<input type="text" name="username">
-				<input type="password" name="password">
-				<input type="submit" value="Submit">
+		
+		<div id="sliderFrame" class = "index_slider">
+	        <div id="slider">
+	            <img class = "portimage" src="images/index_background1.jpg" alt="To Go <br/> - Start a new journey." />
+	            </a>
+	            <img class = "portimage" src="images/index_background2.jpg" alt="To Remember <br/> - Note down your experience." />
+	            <img class = "portimage" src="images/index_background3.jpg" alt="To Share <br/> - Treasure with friends." />
+	            
+		        <!--<div id="htmlcaption" style="display: none;">
+		            <em>HTML</em> caption. Link to <a href="http://www.google.com/">Google</a>.
+		        </div>
+		    -->
+	    	</div>
+	    </div>	
+
+		<div id = "content_container">
+
+		<div id="header" class = "index_header">
+			<div id="logo" class="global_logo"><a href="index.html"><img src="images/logo.jpg"></a></div>
+			<div id="navigation" class="global_navigation">
+				<div id = "brandname">Trip Tailor</div>
+				<div id="navigation1" align="right">
+					<form class = "index_form">
+						<input type="text" name="username" placeholder = "Username">
+ 						<input type="password" name="password" placeholder = "Password">
+						<input type="submit" value="Login">
+					</form>
+				</div>
+				<div id="navigation2">
+					<ul>
+						<li><a class="nav" href="index.html">Home</a></li>
+						<li><a class="nav" href="favorites.html">Favorites</a></li>
+						<li><a class="nav" href="geo.html">Geo Tag</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+
+		<div id="content">
+		<div class = "searchwrapper">
+			<form action = "/search/" class = "index_search" method = "get">
+				<div class = "textwrapper_floatleft">
+					<h3>
+						<input class = "keyword_floatleft" type = "text" name="q" value="" placeholder = "Where do you want to go?">
+					</h3>
+					<div class="submit_floatright"><input type="submit" value="Search"></div>
+				</div>
 			</form>
 		</div>
-		<div id="navigation2">
-			<ul>
-				<li><a class="nav" href="index.html">Home</a></li>
-				<li><a class="nav" href="favorites.html">Favorites</a></li>
-				<li><a class="nav" href="geo.html">Geo Tag</a></li>
-			</ul>
+
+
+		<!--<div class = "searchwrapper">
+			<form action = "/search/" class = "index_search" method = "get">
+				<div class = "textwrapper_floatleft">
+					<select name = "City" id = "city-selector" autofous = "autofocus" autocorrect = "off" autocomplete = "off">
+
+						<option class = "keyword_floatleft" type = "text" name="q" value="" selectd = "selected" placeholder = "Where do you want to go?"></option>
+						<option value = "Beijing" data-alternative-spelling = "beijing">Beijing</option>
+				        <option value = "Shanghai" data-alternative-spelling = "shanghai">Shanghai</option>
+				        <option value = "Qingdao" data-alternative-spelling = "qingdao">Qingdao</option>
+				        <option value = "Tibet" data-alternative-spelling = "tibet">Tibet</option>
+				    </select>
+					<div class="submit_floatright"><input type="submit" value="Search"></div>
+				</div>
+			</form>
 		</div>
-	</div>
-	</div>
-	<div id="content">
+	-->
 
-		
-	</div>
-	</div>
 
+
+	</div>
 </div>
 </body>
 </html>
