@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Geo Tag</title>
+<!--
+<link href="styles/stylesheet.css" type="text/css" rel="stylesheet"/>
+<link href="styles/favorites.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="styles/js-image-slider.css"  type="text/css" />
+-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=3b7e8910953ad5a4813577d6dc99eb37"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
+<style type="text/css">
+    html,body{
+        width:100%;
+        height:100%;
+        margin:0;
+        overflow:hidden;
+    }
+    div{
+        display: block;
+    }
+    ul
+    {
+        list-style-type:none;
+        margin:0;
+        padding:0;
+        overflow:hidden;
+        border-right:1 px solid white;
+    }
+li
+    {
+        float:left;
+    }
+
+a.nav:link,a.nav:visited
+    {
+        display:block;
+        width:300px;
+        font-weight:bold;
+        color:#FFFFFF;
+        /*background-color:#bebebe; */
+        text-align:center;
+        padding:4px;
+        text-decoration:none;
+        text-transform:uppercase;
+    }
+a.nav:hover,a.nav:active
+    {
+        background-color:#cc0000;
+    }
+    div.global_logo
+    {
+        display: inline;
+    }
+div.global_navigation
+{
+    display: inline-block;
+}
+    #header{
+        background-color: pink;
+    }
+    nav{
+        width: 400px;
+    }
+</style>
+
+</head>
+
+<body>
+    <div id="header">
+        <div id="logo" ><a href="index.html"><img src="images/logo.jpg"></a></div>
+        <div id="navigation" >
+            <div id = "brandname">Trip Tailor</div>
+            <div id="navigation1" align="right">
+                <form id="form">
+                    <input type="text" name="username" placeholder = "Username">
+                    <input type="password" name="password" placeholder = "Password">
+                    <input type="submit" value="Login">
+                </form>
+            </div>
+            <div id="navigation2">
+                <ul>
+                    <li><a class="nav" href="index.html">Home</a></li>
+                    <li><a class="nav" href="#favorites_pagewrap">Favorites</a></li>
+                    <li><a class="nav" href="geo.html">Geo Tag</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+<div style="width:100%;height:100%;border:1px solid gray" id="container"></div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+
+// API from Baidu
+var map = new BMap.Map("container");
+map.centerAndZoom(new BMap.Point(118.454, 32.955), 6);
+map.enableScrollWheelZoom();
+var beijingPosition=new BMap.Point(116.432045,39.910683),
+	hangzhouPosition=new BMap.Point(120.129721,30.314429),
+	shanghaiPosition=new BMap.Point(121.5,31.2),
+	guangzhouPosition=new BMap.Point(113.25,23.1167),
+	qingdaoPosition=new BMap.Point(120.372,36.0986),
+	lasaPosition=new BMap.Point(91.1,29.65);
+var points = [beijingPosition, qingdaoPosition, shanghaiPosition,hangzhouPosition, guangzhouPosition,  lasaPosition];
+
+var curve = new BMapLib.CurveLine(points, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //create a curve
+map.addOverlay(curve); //add curve to map
+curve.enableEditing(); //create editting function
+
+</script>

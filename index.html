@@ -63,6 +63,7 @@
 		ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
 		return canvas.toDataURL();
     }
+
 	    
 </script> 
 
@@ -93,10 +94,10 @@
 			<div id="navigation" class="global_navigation">
 				<div id = "brandname">Trip Tailor</div>
 				<div id="navigation1" align="right">
-					<form class = "index_form">
-						<input type="text" name="username" placeholder = "Username">
- 						<input type="password" name="password" placeholder = "Password">
-						<input type="submit" value="Login">
+					<form class = "index_form" method="post" action="login.php">
+						<input type="text" id="username" placeholder = "Username">
+ 						<input type="password" id="password" placeholder = "Password">
+						<input type="button" onclick="showUser()" value="Login">
 					</form>
 				</div>
 				<div id="navigation2">
