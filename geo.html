@@ -1,105 +1,137 @@
-<!DOCTYPE html>
 <html>
 <head>
-<title>Geo Tag</title>
-<!--
-<link href="styles/stylesheet.css" type="text/css" rel="stylesheet"/>
-<link href="styles/favorites.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="styles/js-image-slider.css"  type="text/css" />
--->
+	<link href="styles/stylesheet.css" type="text/css" rel="stylesheet"/>
+	<link href="styles/favorites.css" type="text/css" rel="stylesheet"/>
+	<link rel="stylesheet" href="styles/js-image-slider.css"  type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=3b7e8910953ad5a4813577d6dc99eb37"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
-<style type="text/css">
-    html,body{
-        width:100%;
-        height:100%;
-        margin:0;
-        overflow:hidden;
-    }
-    div{
-        display: block;
-    }
-    ul
-    {
-        list-style-type:none;
-        margin:0;
-        padding:0;
-        overflow:hidden;
-        border-right:1 px solid white;
-    }
-li
-    {
-        float:left;
+    <script src="scripts/js-image-slider.js" type="text/javascript"></script>
+
+<script src="jquery.min.js" type="text/javascript"></script> 
+<script type="text/javascript"> 
+	
+	// $(".item img").css({"display":"none");
+	
+	// On window load. This waits until images have loaded which is essential
+	$(window).load(function(){
+		
+		// Fade in images so there isn't a color "pop" document load and then on window load
+		$(".item img").animate({opacity:1},500);
+		
+		// clone image
+		$('.item img').each(function(){
+			var el = $(this);
+			el.css({"position":"absolute"}).wrap("<div class='img_wrapper' style='display: inline-block'>").clone().addClass('img_grayscale').css({"position":"absolute","z-index":"998","opacity":"0"}).insertBefore(el).queue(function(){
+				var el = $(this);
+				el.parent().css({"width":this.width,"height":this.height});
+				el.dequeue();
+			});
+			this.src = grayscale(this.src);
+		});
+		
+		// Fade image 
+		$('.item img').mouseover(function(){
+			$(this).parent().find('img:first').stop().animate({opacity:1}, 1000);
+		})
+		$('.img_grayscale').mouseout(function(){
+			$(this).stop().animate({opacity:0}, 1000);
+		});		
+	});
+	
+	// Grayscale w canvas method
+	function grayscale(src){
+		//var image = document.getElementById("images");
+		//image.crossOrigin = 'anonymous';
+        var canvas = document.createElement('canvas');
+		var ctx = canvas.getContext('2d');
+        var imgObj = new Image();
+        //imgObj.crossOrigin = "Anonymous";
+		imgObj.src = src;
+
+		canvas.width = imgObj.width;
+		canvas.height = imgObj.height; 
+		ctx.drawImage(imgObj, 0, 0); 
+		var imgPixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+		for(var y = 0; y < imgPixels.height; y++){
+			for(var x = 0; x < imgPixels.width; x++){
+				var i = (y * 4) * imgPixels.width + x * 4;
+				var avg = (imgPixels.data[i] + imgPixels.data[i + 1] + imgPixels.data[i + 2]) / 3;
+				imgPixels.data[i] = avg; 
+				imgPixels.data[i + 1] = avg; 
+				imgPixels.data[i + 2] = avg;
+			}
+		}
+		ctx.putImageData(imgPixels, 0, 0, 0, 0, imgPixels.width, imgPixels.height);
+		return canvas.toDataURL();
     }
 
-a.nav:link,a.nav:visited
-    {
-        display:block;
-        width:300px;
-        font-weight:bold;
-        color:#FFFFFF;
-        /*background-color:#bebebe; */
-        text-align:center;
-        padding:4px;
-        text-decoration:none;
-        text-transform:uppercase;
-    }
-a.nav:hover,a.nav:active
-    {
-        background-color:#cc0000;
-    }
-    div.global_logo
-    {
-        display: inline;
-    }
-div.global_navigation
-{
-    display: inline-block;
-}
-    #header{
-        background-color: pink;
-    }
-    nav{
-        width: 400px;
-    }
-</style>
+	    
+</script> 
 
 </head>
 
 <body>
-    <div id="header">
-        <div id="logo" ><a href="index.html"><img src="images/logo.jpg"></a></div>
-        <div id="navigation" >
-            <div id = "brandname">Trip Tailor</div>
-            <div id="navigation1" align="right">
-                <form id="form">
-                    <input type="text" name="username" placeholder = "Username">
-                    <input type="password" name="password" placeholder = "Password">
-                    <input type="submit" value="Login">
-                </form>
-            </div>
-            <div id="navigation2">
-                <ul>
-                    <li><a class="nav" href="index.html">Home</a></li>
-                    <li><a class="nav" href="#favorites_pagewrap">Favorites</a></li>
-                    <li><a class="nav" href="geo.html">Geo Tag</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
 
-<div style="width:100%;height:100%;border:1px solid gray" id="container"></div>
+<div id = "wrap">
+		
+		<div id="sliderFrame" class = "index_slider">
+	        <div id="slider">
+	            <img class = "portimage" src="images/index_background1.jpg" alt="To Go <br/> - Start a new journey." />
+	            </a>
+	            <img class = "portimage" src="images/index_background2.jpg" alt="To Remember <br/> - Note down your experience." />
+	            <img class = "portimage" src="images/index_background3.jpg" alt="To Share <br/> - Treasure with friends." />
+	            
+	    	</div>
+	    </div>	
 
+		<div id = "content_container">
+
+		<div id="header" class = "index_header">
+			<div id="logo" class="global_logo"><a href="index.html"><img src="images/logo.jpg"></a></div>
+			<div id="navigation" class="global_navigation">
+				<div id = "brandname">Trip Tailor</div>
+				<div id="navigation1" align="right">
+					<form class = "index_form" method="post" action="login.php">
+						<input type="text" id="username" placeholder = "Username">
+ 						<input type="password" id="password" placeholder = "Password">
+						<input type="button" onclick="showUser()" value="Login">
+					</form>
+				</div>
+				<div id="navigation2">
+					<ul>
+						<li><a class="nav" href="index.html">Home</a></li>
+						<li><a class="nav" href="#favorites_pagewrap">Favorites</a></li>
+						<li><a class="nav" href="geo.html">Geo Tag</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+
+<div id="content">
+		<div class = "searchwrapper">
+			<form action = "/search/" class = "index_search" method = "get">
+				<div class = "textwrapper_floatleft">
+					<h3>
+						<input class = "keyword_floatleft" type = "text" name="q" value="" placeholder = "Where do you want to go?">
+					</h3>
+					<div class="submit_floatright"><input type="submit" value="Search"></div>
+				</div>
+			</form>
+		</div>
+
+		<div style="width:100%;height:100%;border:1px solid gray" id="container"></div>
+
+</div>
 </body>
-</html>
-
+</html>	
 <script type="text/javascript">
 
 // API from Baidu
 var map = new BMap.Map("container");
-map.centerAndZoom(new BMap.Point(118.454, 32.955), 6);
+map.centerAndZoom(new BMap.Point(118.454, 32.955), 5);
 map.enableScrollWheelZoom();
 var beijingPosition=new BMap.Point(116.432045,39.910683),
 	hangzhouPosition=new BMap.Point(120.129721,30.314429),
@@ -107,7 +139,7 @@ var beijingPosition=new BMap.Point(116.432045,39.910683),
 	guangzhouPosition=new BMap.Point(113.25,23.1167),
 	qingdaoPosition=new BMap.Point(120.372,36.0986),
 	lasaPosition=new BMap.Point(91.1,29.65);
-var points = [beijingPosition, qingdaoPosition, shanghaiPosition,hangzhouPosition, guangzhouPosition,  lasaPosition];
+var points = [beijingPosition, qingdaoPosition, shanghaiPosition,hangzhouPosition, guangzhouPosition,  lasaPosition, beijingPosition];
 
 var curve = new BMapLib.CurveLine(points, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //create a curve
 map.addOverlay(curve); //add curve to map

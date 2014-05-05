@@ -7,7 +7,6 @@ div
 {
 	display: block;
 }
-body:
 
 div#wrap
 {
@@ -296,7 +295,46 @@ form.autocomplete_search
   background-color: #D5E5F4;
   color: #161A1C;
 }
-
+	/* map style */
+	div.map {
+		font: .88em/1.53em Arial, Helvetica, sans-serif;
+		margin: 0 auto;
+		color: #999;
+		width: 1000px;
+	}
+	h1.map {
+		font-size: 1.3em;
+		margin: 0 0 10px;
+		color: #000;
+	}
+	h2.map {
+		font-size: 2.2em;
+		line-height: 1.1em;
+		margin: 0 0 10px;
+		color: #000;
+		text-align: center;
+	}
+	a {
+		color: #69C;
+		text-decoration: none;
+	}
+	a:hover {
+		color: #F30;
+	}
+	
+	em {
+		font: italic 100% "Times New Roman", Times, serif;
+	}
+	.credits {
+		border-bottom: solid 1px #eee;
+		padding-bottom: 10px;
+		margin: 0 0 50px;
+	}
+	#pagewrap {
+		margin: 0 auto;
+		width: 800px;
+		max-width: 94%;
+	}
 
 
 

@@ -1,12 +1,5 @@
-
 <!DOCTYPE html>
 <html>
-<head>
-	<script type="text/javascript">
-	var x=document.getElementById("username"),
-		y=document.getElementById("password");
-	</script>
-</head>
 <body>
 <?php
 
@@ -19,12 +12,26 @@
   	}
 	else
   		echo "Connected!"."<br>";
-  	//check user
-$result = mysqli_query($con,"SELECT * FROM user where username='x' & password='y'");
-while($row = mysqli_fetch_array($result)){
-	echo "Hello"+x;
-}
-?>
+ 
 
+	session_start();
+	$_SESSION["username"] = $_POST['username'];
+	$_SESSION["password"] = $_POST['password'];
+	if(!empty($_SESSION["username"]) && !empty($_SESSION["password"]))
+	{
+    	$sql="select * from user where username='$_SESSION[username]' and  password='$_SESSION[password]'";
+    	$query=mysql_query($sql);
+    	if(mysql_fetch_array($query))
+    	{
+ 			echo "login successfully";
+ 			exit;
+ 		}
+ 		else
+ 			echo "Please register first!";
+	}else{
+			echo "The user name and password can not be empty!";
+	}
+
+?>
 </body>
 </html>
